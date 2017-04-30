@@ -109,6 +109,12 @@ public class Players {
            } else {
            }
         }
+        for(int i=0;i<4;i++){     //if colide
+            if(list.get(player-1).pos[0]==list.get(i).pos[0] && list.get(player-1).pos[1]==list.get(i).pos[1] && (player-1!=i)){
+                list.get(player-1).score-=3;
+                list.get(i).score-=3;
+            }
+        }
     
     }
     
