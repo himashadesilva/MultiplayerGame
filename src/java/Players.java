@@ -19,6 +19,7 @@ public class Players {
     //private int[][] positions = new int[4][2];
    
     ArrayList<Details> list = new ArrayList<>();
+    public int dots=0;
     
     public void initPlayers(){
         
@@ -106,6 +107,7 @@ public class Players {
                }
                board.places[i][0]=50;
                board.places[i][1]=50;
+               dots++;
            } else {
            }
         }
@@ -113,8 +115,52 @@ public class Players {
             if(list.get(player-1).pos[0]==list.get(i).pos[0] && list.get(player-1).pos[1]==list.get(i).pos[1] && (player-1!=i)){
                 list.get(player-1).score-=3;
                 list.get(i).score-=3;
+                switch(i){
+                    case 0:
+                        list.get(i).pos[0]=0;
+                        list.get(i).pos[1]=0;
+                        break;
+                    case 1:
+                        list.get(i).pos[0] = 44;
+                        list.get(i).pos[1] = 0;
+                        break;
+                    case 2:
+                        list.get(i).pos[0] = 0;
+                        list.get(i).pos[1] = 44;
+                        break;
+                    case 3:
+                        list.get(i).pos[0] = 44;
+                        list.get(i).pos[1] = 44;
+                        break;    
+                }
+                
+                
+                switch(player-1){
+                    case 0:
+                        list.get(player-1).pos[0]=0;
+                        list.get(player-1).pos[1]=0;
+                        break;
+                    case 1:
+                        list.get(player-1).pos[0] = 44;
+                        list.get(player-1).pos[1] = 0;
+                        break;
+                    case 2:
+                        list.get(player-1).pos[0] = 0;
+                        list.get(player-1).pos[1] = 44;
+                        break;
+                    case 3:
+                        list.get(player-1).pos[0] = 44;
+                        list.get(player-1).pos[1] = 44;
+                        break;    
+                }
             }
         }
+    
+    }
+    
+    public void reset(Board board){
+        board.intGameBoard();
+        this.initPlayers();
     
     }
     
@@ -150,6 +196,6 @@ class Details{
         this.pos[0] = pos[0];
         this.pos[1] = pos[1];
     } 
-    
+  
 
 }

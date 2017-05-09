@@ -69,8 +69,8 @@ public final class GameServer extends HttpServlet {
                     out.println("data:{" + board.printBoard() + ", " + players.printPlayers() + "}");
                     out.println();
                     out.flush();
-                    if(players.dots==11){
-                        
+                    if(players.dots==12){
+                       players.reset(board);
                     }
                     players.wait();
                 }
