@@ -30,6 +30,11 @@ public final class GameServer extends HttpServlet {
         if (pl == null) {
             if (playerNo < 5) {
                 playerNo++;
+                if(playerNo==4){
+                    players.playersReady=true; //4 players connected, players can move
+                    players.canMove = true;
+                    players.initPlayers();
+                }
                 session.setAttribute("player", playerNo + "");
                 current = playerNo;
             }
@@ -58,6 +63,11 @@ public final class GameServer extends HttpServlet {
             if (pl == null) {
                 if (playerNo < 5) {
                     playerNo++;
+                    if(playerNo==4){
+                    players.playersReady=true; //4 players connected, players can move
+                    players.canMove = true;
+                    players.initPlayers();
+                }
                     session.setAttribute("player", playerNo + "");
                     current = playerNo;
                 }
