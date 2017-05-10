@@ -20,6 +20,7 @@ public class Players {
    
     ArrayList<Details> list = new ArrayList<>();
     public int dots=0;
+    public boolean canMove=false;
     
     public void initPlayers(){
         
@@ -30,26 +31,26 @@ public class Players {
         
         
         int[] temp_pos = new int[2];
-        temp_pos[0]=0;
-        temp_pos[1]=0;
+        temp_pos[0]=45;
+        temp_pos[1]=45;
            
         Details detail1 = new Details(0,0,temp_pos);
         list.add(detail1);
         
-        temp_pos[0]=44;
+        temp_pos[0]=45;
         temp_pos[1]=0;
            
         Details detail2 = new Details(1,0,temp_pos);
         list.add(detail2);
         
-        temp_pos[0]=0;
-        temp_pos[1]=44;
+        temp_pos[0]=45;
+        temp_pos[1]=45;
            
         Details detail3 = new Details(2,0,temp_pos);
         list.add(detail3);
         
-        temp_pos[0]=44;
-        temp_pos[1]=44;
+        temp_pos[0]=45;
+        temp_pos[1]=45;
            
         Details detail4 = new Details(3,0,temp_pos);
         list.add(detail4);
@@ -57,7 +58,9 @@ public class Players {
     }
     
     public void move(int player, int movement, Board board){
-   
+        
+        if(canMove){
+        
         if(movement == 37){
           if(list.get(player-1).pos[0]==0)    
             list.get(player-1).pos[0]+=44;
@@ -83,12 +86,13 @@ public class Players {
         list.get(player-1).pos[1]++;
         }
         //gotPoints(board, player);
-    
+        }
     }
     
     public void gotPoints(Board board, int player){
         int index;
         char col;
+        if(canMove){
         for(int i=0;i<12;i++){
             if(board.places[i][0]==list.get(player-1).pos[0] &&board.places[i][1]==list.get(player-1).pos[1] ){
                //index = board.list.indexOf(list.get(player-1));
@@ -155,7 +159,7 @@ public class Players {
                 }
             }
         }
-    
+        }
     }
     
     public void reset(Board board){
