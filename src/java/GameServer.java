@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.logging.*;
 import javax.servlet.*;
@@ -11,6 +10,7 @@ public final class GameServer extends HttpServlet {
     private Board board = new Board();
     private Players players = new Players();
     private int playerNo = 0;
+    boolean playersReady = false;
 
     @Override
     public void init(final ServletConfig config) {
