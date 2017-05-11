@@ -30,7 +30,7 @@ public final class GameServer extends HttpServlet {
         if (pl == null) {
             if (playerNo < 5) {
                 playerNo++;
-                if(playerNo==4){
+                if(playerNo==1){
                     players.playersReady=true; //4 players connected, players can move
                     players.canMove = true;
                     players.initPlayers();
@@ -63,7 +63,7 @@ public final class GameServer extends HttpServlet {
             if (pl == null) {
                 if (playerNo < 5) {
                     playerNo++;
-                    if(playerNo==4){
+                    if(playerNo==1){
                     players.playersReady=true; //4 players connected, players can move
                     players.canMove = true;
                     players.initPlayers();
@@ -79,8 +79,12 @@ public final class GameServer extends HttpServlet {
                     out.println("data:{" + board.printBoard() + ", " + players.printPlayers() + "}");
                     out.println();
                     out.flush();
+               
                     if(players.dots==12){
-                       players.reset(board);
+                       Thread.sleep(2000);
+                       players.reset();
+                       players.dots=0;
+                       board.reset();
                     }
                     players.wait();
                 }
