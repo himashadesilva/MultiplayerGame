@@ -20,10 +20,10 @@ public class Players {
     //private int[] scores = new int[4];
     //private int[][] positions = new int[4][2];
    
-    ArrayList<Details> list = new ArrayList<>();
-    public int dots=0;
-    public boolean canMove=false;
-    public boolean playersReady=false;
+    ArrayList<Details> list = new ArrayList<>();  //create array list to put player details object (score and position)
+    public int dots=0;          
+    public boolean canMove=false;  //sate of a player can move or not, if all players are connected can move
+    public boolean playersReady=false; //if all players ready , players will be placed
     
     public void initPlayers(){
         
@@ -35,7 +35,7 @@ public class Players {
         if(playersReady==false){
         int[] temp_pos = new int[2];
         temp_pos[0]=45;
-        temp_pos[1]=45;
+        temp_pos[1]=45;               //init players with position of outside board, because all 4 players not connected
            
         Details detail1 = new Details(0,0,temp_pos);
         list.add(detail1);
@@ -58,7 +58,7 @@ public class Players {
         Details detail4 = new Details(3,0,temp_pos);
         list.add(detail4);
         }
-        if(playersReady){
+        if(playersReady){              //all players are connected, so place 4 players at 4 corners
             
             
                 list.get(0).pos[0]=0;
@@ -79,41 +79,30 @@ public class Players {
     
     }
     
-    public int winner(){
     
-        int winner;
-        ArrayList<Integer> ar = new ArrayList<>();
-        for(int i=0;i<4;i++){
-        ar.add(list.get(i).score);
-        }
-        int max = Collections.max(ar);
-        winner = ar.indexOf(max);
-    return winner;
-    }
-    
-    public void move(int player, int movement, Board board){
+    public void move(int player, int movement, Board board){   //movement of a player
         
-        if(canMove){
+        if(canMove){      //only move player if can move, (if all players are connected)
         
         if(movement == 37){
-          if(list.get(player-1).pos[0]==0)    
+          if(list.get(player-1).pos[0]==0)       //move ledt, if player at the left boarder , player will be appear in right side of boader
             list.get(player-1).pos[0]+=44;
           else
-            list.get(player-1).pos[0]--;
+            list.get(player-1).pos[0]--;     //else move left
         }
-        if(movement == 38){
+        if(movement == 38){               //move up
             if(list.get(player-1).pos[1]==0)    
             list.get(player-1).pos[1]+=44;
             else
         list.get(player-1).pos[1]--;
         }
-        if(movement == 39){
+        if(movement == 39){             //move right
             if(list.get(player-1).pos[0]==44)    
             list.get(player-1).pos[0]=0;
             else
         list.get(player-1).pos[0]++;
         }
-        if(movement == 40){
+        if(movement == 40){              //move down
             if(list.get(player-1).pos[1]==44)    
             list.get(player-1).pos[1]=0;
             else
@@ -123,33 +112,33 @@ public class Players {
         }
     }
     
-    public void gotPoints(Board board, int player){
+    public void gotPoints(Board board, int player){ //check if players got any point from a move
         int index;
         char col;
         if(canMove){
         for(int i=0;i<12;i++){
-            if(board.places[i][0]==list.get(player-1).pos[0] &&board.places[i][1]==list.get(player-1).pos[1] ){
+            if(board.places[i][0]==list.get(player-1).pos[0] &&board.places[i][1]==list.get(player-1).pos[1] ){   //checkfor all dots
                //index = board.list.indexOf(list.get(player-1));
                index = i;
                col = board.dots[index];
                switch(col){
                     case 'B' :
-                        list.get(player-1).score+=4;                       
+                        list.get(player-1).score+=4;         //if hits blue dot , increase score by 4                
                         break;
                     case 'G' :
-                        list.get(player-1).score+=2;
+                        list.get(player-1).score+=2;        //if hit green dot, increase score by 2
                         break;
                     case 'R' :
-                        list.get(player-1).score+=1;
+                        list.get(player-1).score+=1;    //if hit red dot, increase score by 1
                         break;      
                }
-               board.places[i][0]=-1;
+               board.places[i][0]=-1;    //move dot that hit to -1,-1 position (out of the board)
                board.places[i][1]=-1;
                dots++;
            } else {
            }
         }
-        for(int i=0;i<4;i++){     //if colide
+        for(int i=0;i<4;i++){     //check if collide two players
             if(list.get(player-1).pos[0]==list.get(i).pos[0] && list.get(player-1).pos[1]==list.get(i).pos[1] && (player-1!=i)){
                 list.get(player-1).score-=3;
                 list.get(i).score-=3;
@@ -196,16 +185,16 @@ public class Players {
         }
     }
     
-    public void reset(){
-        list.clear();
-        this.playersReady=false;  
-        this.initPlayers();
+    public void reset(){   //reset players
+        list.clear();   //clear player details objects
+        this.playersReady=false;   
+        this.initPlayers();   //init players with score 0 ,
         this.playersReady=true;
-        this.initPlayers();
+        this.initPlayers();  //init players with position of 4 corners
     
     }
     
-    public String printPlayers(){
+    public String printPlayers(){   //send player score and position as a part of a json
          StringBuffer sb = new StringBuffer("\"PLAYERS\":   [");
         //sb.append("");
 
@@ -225,7 +214,7 @@ public class Players {
     
 }
 
-class Details{
+class Details{   //detail object
     
     protected int player;
     protected int score;

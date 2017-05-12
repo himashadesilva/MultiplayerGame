@@ -12,7 +12,7 @@ public class Board {
     
     ArrayList<Integer[]> list = new ArrayList<>();
     
-    public void intGameBoard(){
+    public void intGameBoard(){  //init game board with random positions
     
         for(int i=0;i<12;i++){
             if(i%3==0)
@@ -29,7 +29,7 @@ public class Board {
         
         for(int i=0;i<12;i++){
             temp_dot = new Integer[2];
-            temp_dot[0]= rn.nextInt(42)+1;
+            temp_dot[0]= rn.nextInt(42)+1;    //get random no range 1 and 43
             temp_dot[1]= rn.nextInt(42)+1;
             
             while(list.contains(temp_dot)){
@@ -37,14 +37,14 @@ public class Board {
                 temp_dot[1]= rn.nextInt(42)+1;
             }
             places[i] = temp_dot;
-            list.add(temp_dot);
+            list.add(temp_dot); //put positions to array list
            
         }
     
     }
     
-    public void reset(){
-    list.clear();
+    public void reset(){   //rest game board
+    list.clear();    
     this.intGameBoard();
     
     }
@@ -54,7 +54,7 @@ public class Board {
         //sb.append("");
 
         for(int i=0;i<12;i++){
-            sb.append("[\""+dots[i]+"\", "+list.get(i)[0]+", "+list.get(i)[1]+"]");
+            sb.append("[\""+dots[i]+"\", "+list.get(i)[0]+", "+list.get(i)[1]+"]");  //send position and color of dot as a part of a json 
             if(i!=11)
                 sb.append(",");
 

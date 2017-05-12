@@ -30,9 +30,9 @@ public final class GameServer extends HttpServlet {
         pl = session.getAttribute("player");
 
         if (pl == null) {
-            if (playerNo < 5) {
+            if (playerNo < 5) {   //only 4 sessions get saved
                 playerNo++;
-                if(playerNo==1){
+                if(playerNo==4){  //if no of players are 4
                     players.playersReady=true; //4 players connected, players can move
                     players.canMove = true;
                     players.initPlayers();
@@ -45,8 +45,8 @@ public final class GameServer extends HttpServlet {
         }
         String movement = request.getParameter("keypress");
         synchronized (players) {
-            players.move(current, Integer.parseInt(movement),board);
-            players.gotPoints(board, current);
+            players.move(current, Integer.parseInt(movement),board);  //call the move , pass the player and movement and board
+            players.gotPoints(board, current);     //check if that move got any point
             players.notifyAll();
         }
     }
@@ -65,7 +65,7 @@ public final class GameServer extends HttpServlet {
             if (pl == null) {
                 if (playerNo < 5) {
                     playerNo++;
-                    if(playerNo==1){
+                    if(playerNo==4){
                     players.playersReady=true; //4 players connected, players can move
                     players.canMove = true;
                     players.initPlayers();
@@ -81,13 +81,6 @@ public final class GameServer extends HttpServlet {
                     out.println("data:{" + board.printBoard() + ", " + players.printPlayers() + "}");
                     out.println();
                     out.flush();
-               
-//                    if(players.dots==12){
-//                       Thread.sleep(2000);
-//                       players.reset();
-//                       players.dots=0;
-//                       board.reset();
-//                    }
                     players.wait();
                 }
             }
