@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 /*
@@ -21,6 +23,7 @@ public class Players {
     ArrayList<Details> list = new ArrayList<>();
     public int dots=0;
     public boolean canMove=false;
+    public boolean playersReady=false;
     
     public void initPlayers(){
         
@@ -29,7 +32,7 @@ public class Players {
         players[2]="P3";
         players[3]="P4";
         
-        
+        if(playersReady==false){
         int[] temp_pos = new int[2];
         temp_pos[0]=45;
         temp_pos[1]=45;
@@ -38,7 +41,7 @@ public class Players {
         list.add(detail1);
         
         temp_pos[0]=45;
-        temp_pos[1]=0;
+        temp_pos[1]=45;
            
         Details detail2 = new Details(1,0,temp_pos);
         list.add(detail2);
@@ -54,7 +57,38 @@ public class Players {
            
         Details detail4 = new Details(3,0,temp_pos);
         list.add(detail4);
+        }
+        if(playersReady){
+            
+            
+                list.get(0).pos[0]=0;
+                list.get(0).pos[1]=0;
+                
+                list.get(1).pos[0]=44;
+                list.get(1).pos[1]=0;
+                
+                 list.get(2).pos[0]=0;
+                list.get(2).pos[1]=44;
+                
+                 list.get(3).pos[0]=44;
+                list.get(3).pos[1]=44;
+                
+            
+        
+        }
     
+    }
+    
+    public int winner(){
+    
+        int winner;
+        ArrayList<Integer> ar = new ArrayList<>();
+        for(int i=0;i<4;i++){
+        ar.add(list.get(i).score);
+        }
+        int max = Collections.max(ar);
+        winner = ar.indexOf(max);
+    return winner;
     }
     
     public void move(int player, int movement, Board board){
@@ -109,8 +143,8 @@ public class Players {
                         list.get(player-1).score+=1;
                         break;      
                }
-               board.places[i][0]=50;
-               board.places[i][1]=50;
+               board.places[i][0]=-1;
+               board.places[i][1]=-1;
                dots++;
            } else {
            }
@@ -162,8 +196,11 @@ public class Players {
         }
     }
     
-    public void reset(Board board){
-        board.intGameBoard();
+    public void reset(){
+        list.clear();
+        this.playersReady=false;  
+        this.initPlayers();
+        this.playersReady=true;
         this.initPlayers();
     
     }

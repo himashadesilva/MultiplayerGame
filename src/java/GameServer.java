@@ -4,7 +4,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+
 //@WebServlet(urlPatterns = {"/GameServer"})
+
 public final class GameServer extends HttpServlet {
 
     private Board board = new Board();
@@ -80,12 +82,12 @@ public final class GameServer extends HttpServlet {
                     out.println();
                     out.flush();
                
-                    if(players.dots==12){
-                       Thread.sleep(2000);
-                       players.reset();
-                       players.dots=0;
-                       board.reset();
-                    }
+//                    if(players.dots==12){
+//                       Thread.sleep(2000);
+//                       players.reset();
+//                       players.dots=0;
+//                       board.reset();
+//                    }
                     players.wait();
                 }
             }

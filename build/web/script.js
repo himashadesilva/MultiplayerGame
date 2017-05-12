@@ -65,7 +65,7 @@ init();
 
 /*Lets paint the player now*/
 function paint() {
-
+    
     /*Lets paint the canvas now*/
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, w, h);
@@ -88,8 +88,80 @@ function paint() {
     for (i = 0; i < fLength; i++) {
         paint_food(foods[i][0], foods[i][1], foods[i][2]);
     }
+    
+    gameEnd(players,foods);
+}
+
+function gameEnd(players,foods){
+    
+    var count=0;
+    for(i=0;i<12;i++){
+        //console.log(count);
+        if(foods[i][1]===-1&&foods[i][2]===-1){
+         count++;      
+        }
+        
+    }
+    //console.log(count);
+    if(count===12){
+        var scores=[players[0][1],players[1][1],players[2][1],players[3][1]];
+        var max = Math.max(players[0][1], players[1][1], players[2][1], players[3][1]);
+        
+       document.write("<!DOCTYPE html>");
+        document.write("<head>");
+        document.write("</head>");
+        document.write("<body>");
+        document.write("<html lang=\"en\">");
+        document.write(" <center><h1>Game Finished</h1> <center>");
+        document.write("<div>");
+        document.write("<table>");
+        document.write("<tr style=\"background-color: #4CAF50;\">");
+        document.write("<th><center>Player</center></th>");
+        document.write("<th><center>Score</center></th>");
+        document.write("</tr>");
+        document.write("<tr>");
+        document.write("<td>P1</td>");
+        document.write("<td><center>" + players[0][1] + "</center></td>");
+        document.write("</tr>");
+        document.write("<tr style=\"background-color: #f2f2f2;\">");
+        document.write("<td>P2</td>");
+        document.write("<td><center>" + players[1][1] + "</center></td>");
+        document.write("</tr>");
+        document.write("<tr>");
+        document.write("<td>P3</td>");
+        document.write("<td><center>" + players[2][1] + "</center></td>");
+        document.write("</tr>");
+        document.write("<tr style=\"background-color: #f2f2f2;\">");
+        document.write("<td>P4</td>");
+        document.write("<td><center>" + players[3][1] + "</center></td>");
+        document.write("</tr>");
+        document.write("</table>");
+        document.write("</div>");
 
 
+           document.write(" <center><h2>Winner</h2><center>\n");
+           
+        if (players[0][1] === max) {
+            document.write("<center><h3>Player 1</h3><center>  ");
+        }
+        if (players[1][1] === max) {
+            document.write(" <center><h3>Player 2</h3><center>");
+        }
+        if (players[2][1] === max) {
+            document.write(" <center><h3>Player 3</h3><center>");
+        }
+        if (players[3][1] === max) {
+            document.write(" <center><h3>Player 4</h3><center>");
+
+        }
+        
+//        
+        document.write("</body>");
+        document.write("</html>");
+        clearInterval(game_loop);
+    }
+    
+//    clearInterval(game_loop);
 }
 
 paint();

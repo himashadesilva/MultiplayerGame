@@ -43,6 +43,12 @@ public class Board {
     
     }
     
+    public void reset(){
+    list.clear();
+    this.intGameBoard();
+    
+    }
+    
     public String printBoard(){
         StringBuffer sb = new StringBuffer("\"DOTS\":   [");
         //sb.append("");
